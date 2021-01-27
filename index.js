@@ -2,7 +2,6 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const inquirer = require('inquirer');
-const fs = require('fs');
 
 const inquireBasic = (type) => [
     {
@@ -23,7 +22,12 @@ const inquireBasic = (type) => [
 ];
 
 const generateHTML = (members) => {
-    console.log(members);
+    const fs = require('fs');
+    const generateTemplate = require('./src/generateTemplate');
+    const html = generateTemplate(members);
+    fs.writeFile("./dist/index.html", html, "utf8", (err) => {
+        if (err) throw err;
+    })
 }
 
 const inquireEngineer = () => {
