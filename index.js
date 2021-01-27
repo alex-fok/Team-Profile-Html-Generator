@@ -3,11 +3,21 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const inquirer = require('inquirer');
 
-const inquireBasic = (type) => [
+const generateHTML = (members) => {
+    const fs = require('fs');
+    const generateTemplate = require('./src/generateTemplate');
+    const html = generateTemplate(members);
+    fs.writeFile("./dist/index.html", html, "utf8", (err) => {
+        if (err) throw err;
+        console.log("HTML File generated. Check 'dist/index.html'")
+    })
+}
+
+const inquireEmployee = () => [
     {
         name: "name",
         type: "input",
-        message: `Name for ${type}:`
+        message: "Name:"
     },
     {
         name: "id",
@@ -17,27 +27,18 @@ const inquireBasic = (type) => [
     {
         name: "email",
         type: "input",
-        message: "Email"
+        message: "Email:"
     }
 ];
-
-const generateHTML = (members) => {
-    const fs = require('fs');
-    const generateTemplate = require('./src/generateTemplate');
-    const html = generateTemplate(members);
-    fs.writeFile("./dist/index.html", html, "utf8", (err) => {
-        if (err) throw err;
-    })
-}
 
 const inquireEngineer = () => {
     return inquirer
     .prompt([
-        ...inquireBasic("engineer"),
+        ...inquireEmployee(),
         {
             name: "github",
             type: "input",
-            message: "Github:"
+            message: "GitHub:"
         }
     ])
 }
@@ -45,7 +46,7 @@ const inquireEngineer = () => {
 const inquireIntern = () => {
     return inquirer
     .prompt([
-        ...inquireBasic("intern"),
+        ...inquireEmployee(),
         {
             name: "school",
             type: "input",
@@ -55,22 +56,26 @@ const inquireIntern = () => {
 }
 
 const inquireMembers = (members) => {
-    console.log(members);
     const currentMembers = members;
     const addMember = (type, info) => {
         const values = Object.keys(info).map(key => info[key]);
-        const member = 
-            type === "Engineer"
-                ? new Engineer(...values)
-                : new Intern(...values);
-        currentMembers.push(member);
+        try {
+            const member = 
+                type === "Engineer"
+                    ? new Engineer(...values)
+                    : new Intern(...values);
+            currentMembers.push(member);
+            console.log(`${type} '${info["name"]}' added\n`);
+        } catch(err) {
+            console.error(`Invalid input: ${err}\n`);
+        }
     }
 
     inquirer
     .prompt([{
         name: "type",
         type: "list",
-        message: "Choose member type:",
+        message: "Member Type:",
         choices: ["Engineer", "Intern", new inquirer.Separator(), "Quit"]
     }])
     .then(member => {
@@ -96,17 +101,23 @@ const inquireMembers = (members) => {
 const inquireManager = () => {
     inquirer
     .prompt([
-        ...inquireBasic("manager"),
+        ...inquireEmployee(),
         {
-            name: "officeNumber",
+            name: "officeNum",
             type: "number",
             message: "Office Number:"
         }
     ])
     .then(answers => {
-        const {name, id, email, officeNumber} = answers;
-        const manager = new Manager(name, id, email, officeNumber);
-        inquireMembers([manager]);
+        const {name, id, email, officeNum} = answers;
+        try {
+            const manager = new Manager(name, id, email, officeNum);
+            console.log(`Manager '${name}' added. Choose Member(s):\n`);
+            inquireMembers([manager]);
+        } catch(err) {
+            console.error(`Invalid input: ${err}\n`);
+            inquireManager();
+        }
     })
 }
 
