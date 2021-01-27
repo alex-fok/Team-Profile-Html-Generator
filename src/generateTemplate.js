@@ -1,20 +1,11 @@
-const Manager = require("../lib/Manager");
-const Engineer = require("../lib/Engineer");
-const Intern = require("../lib/Intern");
-
 const generateComponent = (data) => {
+
     const generateCustomData = (data) => {
-        return (
-        data instanceof Manager
-            ? `<li class="list-group-item">Office Number: ${data.getOfficeNumber()}</li>`
-        : data instanceof Engineer
-            ? `<li class="list-group-item">
-                Github: <a href="https://github.com/${data.getGithub()}">${data.getGithub()}</a>
-            </li>`
-        : data instanceof Intern
-            ? `<li class="list-group-item">School: ${data.getSchool()}</li>`
-        : ""        
-        )
+        const custom = (data.getOfficeNum && `Office Number: ${data.getOfficeNum()}`) ||
+        (data.getGithub && `GitHub: <a href="https://github.com/${data.getGithub()}">${data.getGithub()}</a>`) ||
+        (data.getSchool && `School: ${data.getSchool()}`);
+
+        return `<li class="list-group-item">${custom}</li>`;
     }
 
     return (
