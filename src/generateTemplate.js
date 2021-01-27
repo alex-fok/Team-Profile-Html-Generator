@@ -1,10 +1,33 @@
-const generateComponent = (data) => {
-    return (
-        `<div class="col-4">
-            <div class="card">
-                <h5 class="card-header bg-primary">${data.getName()}<br>${data.getRole()}</h5>
-                <div class="card-body">
+const Manager = require("../lib/Manager");
+const Engineer = require("../lib/Engineer");
+const Intern = require("../lib/Intern");
 
+const generateComponent = (data) => {
+    const generateCustomData = (data) => {
+        return (
+        data instanceof Manager
+            ? `<li class="list-group-item">Office Number: ${data.getOfficeNumber()}</li>`
+        : data instanceof Engineer
+            ? `<li class="list-group-item">Github: ${data.getGithub()}</li>`
+        : data instanceof Intern
+            ? `<li class="list-group-item">School: ${data.getSchool()}</li>`
+        : ""        
+        )
+    }
+
+    return (
+        `<div class="col-3 mt-3 mx-1" style="min-width: 150px;">
+            <div class="card">
+                <h5 class="card-header bg-primary text-white">${data.getName()}<br>${data.getRole()}</h5>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">ID: ${data.getId()}</li>
+                        <li class="list-group-item">
+                            Email: <a href="mailto:${data.getEmail()}">
+                            ${data.getEmail()}</a>
+                        </li>
+                        ${generateCustomData(data)}
+                    </ul>
                 </div>
             </div>
         </div>
@@ -23,9 +46,16 @@ const generateTemplate = (members) => {
 
     </head>
     <body>
-        <div class="container">
-            <div class="row justify-content-evenly">
-                ${members.map((data) => generateComponent(data))}        
+        <header class="navbar navbar-dark bg-dark">
+            <div class="container-fluid">
+                <div class="navbar-brand m-auto">
+                    <h1 class="text-white text-center">Team Profile</h1>
+                </div>
+            </div>
+        </header>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                ${members.map((data) => generateComponent(data)).join("")}        
             </div>
         </div>
         
