@@ -8,7 +8,9 @@ const generateComponent = (data) => {
         data instanceof Manager
             ? `<li class="list-group-item">Office Number: ${data.getOfficeNumber()}</li>`
         : data instanceof Engineer
-            ? `<li class="list-group-item">Github: ${data.getGithub()}</li>`
+            ? `<li class="list-group-item">
+                Github: <a href="https://github.com/${data.getGithub()}">${data.getGithub()}</a>
+            </li>`
         : data instanceof Intern
             ? `<li class="list-group-item">School: ${data.getSchool()}</li>`
         : ""        
