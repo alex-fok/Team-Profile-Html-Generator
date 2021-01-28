@@ -99,6 +99,7 @@ const inquireMembers = (members) => {
 }
 
 const inquireManager = () => {
+    console.log("Type in info for Manager:");
     inquirer
     .prompt([
         ...inquireEmployee(),
