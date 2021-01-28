@@ -76,7 +76,7 @@ const inquireMembers = (members) => {
         name: "type",
         type: "list",
         message: "Member Type:",
-        choices: ["Engineer", "Intern", new inquirer.Separator(), "Quit"]
+        choices: ["Engineer", "Intern", new inquirer.Separator(), "Finish & Quit"]
     }])
     .then(member => {
         switch(member.type) {
