@@ -9,21 +9,21 @@ const generateComponent = (data) => {
     }
 
     return (
-        `<div class="col-3 mt-3 mx-1" style="min-width: 150px;">
-            <div class="card">
-                <h5 class="card-header bg-primary text-white">${data.getName()}<br>${data.getRole()}</h5>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">ID: ${data.getId()}</li>
-                        <li class="list-group-item">
-                            Email: <a href="mailto:${data.getEmail()}">
-                            ${data.getEmail()}</a>
-                        </li>
-                        ${generateCustomData(data)}
-                    </ul>
+        `   <div class="col mt-3 h-100" style="min-width: 150px;">
+                <div class="card">
+                    <h5 class="card-header bg-primary text-white">${data.getName()}<br>${data.getRole()}</h5>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">ID: ${data.getId()}</li>
+                            <li class="list-group-item">
+                                Email: <a href="mailto:${data.getEmail()}">
+                                ${data.getEmail()}</a>
+                            </li>
+                            ${generateCustomData(data)}
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
     `)
 }
 
@@ -34,7 +34,7 @@ const generateTemplate = (members) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Team Profile</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
     </head>
@@ -47,7 +47,7 @@ const generateTemplate = (members) => {
             </div>
         </header>
         <div class="container mt-5">
-            <div class="row justify-content-center">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
                 ${members.map((data) => generateComponent(data)).join("")}        
             </div>
         </div>
