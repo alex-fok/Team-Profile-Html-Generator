@@ -9,8 +9,8 @@ const generateComponent = (data) => {
     }
 
     return (
-        `   <div class="col mt-3 h-100" style="min-width: 150px;">
-                <div class="card">
+        `   <div class="col mt-3" style="min-width: 150px; max-width: 350px;">
+                <div class="card h-100">
                     <h5 class="card-header bg-primary text-white">${data.getName()}<br>${data.getRole()}</h5>
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
