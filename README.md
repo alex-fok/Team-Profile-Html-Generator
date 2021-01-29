@@ -1,6 +1,5 @@
 # Team Profile Html Generator
-This application generates a html page 
-
+This application is a command-line application that takes in information about each software engineering team member, then generates an HTML page that displays these information.
 
 ## Run
 ```bash
