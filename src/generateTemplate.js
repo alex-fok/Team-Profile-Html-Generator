@@ -2,7 +2,7 @@ const generateComponent = (data) => {
 
     const generateCustomData = (data) => {
         const custom = (data.getOfficeNum && `Office Number: ${data.getOfficeNum()}`) ||
-        (data.getGithub && `GitHub: <a href="https://github.com/${data.getGithub()}">${data.getGithub()}</a>`) ||
+        (data.getGithub && `GitHub: <a href="https://github.com/${data.getGithub()}" target="_blank">${data.getGithub()}</a>`) ||
         (data.getSchool && `School: ${data.getSchool()}`);
 
         return `<li class="list-group-item">${custom}</li>`;
