@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest  __tests__/Employee.test.js && jest __tests__/Engineer.test.js && jest __tests__/Intern.test.js && jest __tests__/Manager.test.js"
+    "start": "node index.js",
+    "test":"jest",
+    "testInDetails": "jest  __tests__/Employee.test.js && jest __tests__/Engineer.test.js && jest __tests__/Intern.test.js && jest __tests__/Manager.test.js"
   },
   "author": "",
   "license": "ISC",
